@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import StoriesData from './assets/stories.json';
-import { Container, Navbar, Nav } from 'react-bootstrap';
+import { Container, Navbar, Nav, AccordionCollapse } from 'react-bootstrap';
+
 
 class StoryBoard extends React.Component {
     render() {
