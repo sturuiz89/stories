@@ -29,7 +29,14 @@ class MenuBoard extends React.Component {
     render() {
         const imageColumns = this.props.stories.map((story, index) => {
             return(
-                <Col><img width="200" src={story.image} alt={story.title} rounded /></Col>
+                <Col>
+                    <img 
+                        width="200" 
+                        src={story.image} 
+                        alt={story.title}
+                        onClick={() => this.props.onClick(story.id)}
+                    />
+                </Col>
             );
         });
         return (
@@ -111,6 +118,7 @@ class Stories extends React.Component {
             return (
                 <MenuBoard  
                     stories={this.state.stories}
+                    onClick={(i) => this.handleClick(i)}
                 />
             );
         }
