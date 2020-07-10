@@ -4,9 +4,9 @@ import './index.css';
 import StoriesData from './assets/stories.json';
 import { Container, Navbar, Nav, Col, Row } from 'react-bootstrap';
 import dontgo from './images/dontgo.jpg';
-import sunset from './images/sunset.jpg';
 import trees from './images/trees.jpg';
-
+import log from './images/log.jpg';
+import sunset from './images/sunset.jpg';
 
 class StoryBoard extends React.Component {
     render() {
@@ -15,11 +15,14 @@ class StoryBoard extends React.Component {
                 <p key={index}>{paragraph}</p>
             );
         });
-
+        // style={{color: "#859900"}}
         return (
-            <Container style={{color: "#859900"}} >
-                <br />
-                {paragraphs}
+            <Container>
+                <div>
+                    <br />
+                    {paragraphs}
+                    <br />
+                </div>
             </Container>
         )
     }
@@ -40,9 +43,9 @@ class MenuBoard extends React.Component {
             );
         });
         return (
-            <Container>
+            <Container fluid>
                 <br />
-                <h5>These stories were written in April and May in 2020, the year of our 'rona, during quarantine. Written half on a challenge and half on a whim.</h5>
+                <h5 style={{textAlign:"center"}}>These stories were written in May of 2020, the year of our 'rona, while under quarantine.</h5>
                 <div>
                     <Row>&nbsp;</Row>
                     <Row>
@@ -75,14 +78,15 @@ class Navigation extends React.Component {
          
         
         return ( 
-            <Navbar bg="light" expand="lg">
+            
+            <Navbar bg="light" variant="light" expand="lg">
                 <Navbar.Brand onClick={() => this.props.onClick(null)}>{this.brandDisplay()}</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="mr-auto">
-                        {titles}
-                    </Nav>
-                </Navbar.Collapse>
+                    <Navbar.Collapse id="basic-navbar-nav">
+                        <Nav className="mr-auto">
+                            {titles}
+                        </Nav>
+                    </Navbar.Collapse>
             </Navbar>
         );
     }
@@ -92,8 +96,9 @@ class Stories extends React.Component {
         super(props);
         const images = {
             dontgo: dontgo,
+            log: log,
+            trees: trees,
             sunset: sunset,
-            trees: trees
         }
         this.state = {
             stories: StoriesData.map(s => ({
@@ -134,15 +139,20 @@ class Stories extends React.Component {
     render() {
         return (
             <div>
+            <header>
                 <Imports />
                 <Navigation 
                     stories={this.state.stories}
                     selected={this.state.selected}
                     onClick={(i) => this.handleClick(i)}
                 />
+            </header>
+            <Container className="ReverseTheme">
+               
                 <div >
                     {this.board()}
                 </div>
+            </Container>
             </div>
         )
     }
@@ -159,7 +169,7 @@ class Imports extends React.Component {
                 crossOrigin="anonymous"
             />
 
-            <link href="http://thomasf.github.io/solarized-css/solarized-dark.min.css" rel="stylesheet"></link>
+            {/* <link href="http://thomasf.github.io/solarized-css/solarized-dark.min.css" rel="stylesheet"></link> */}
             </div>
         )
     }
