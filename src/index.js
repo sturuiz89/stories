@@ -100,9 +100,9 @@ class MenuBoard extends React.Component {
     render() {
         const imageColumns = this.props.stories.map((story, index) => {
             return(
-                <Col>
-                    <img 
-                        width="200" 
+                <Col className="text-center" sm="12" lg="4" key={index}>
+                    <img         
+                        width="200px"
                         src={story.image} 
                         alt={story.title}
                         onClick={() => this.props.onClick(story.id)}
@@ -115,17 +115,18 @@ class MenuBoard extends React.Component {
             fontSize: "22px",
             textAlign:"center"
         };
-        
+
         return (
-            <Container fluid>
-                <br />
-                <h5 style={style}>These stories were written in May of 2020, the year of our 'rona, while under quarantine.</h5>
-                <div>
-                    <Row>&nbsp;</Row>
-                    <Row>
-                        {imageColumns}
-                    </Row> 
-                </div>
+            <Container>
+                <Row>&nbsp;</Row>
+                <Row>
+                    <h5 style={style}>These stories were written in May of 2020, the year of our 'rona, while under quarantine.</h5>
+                </Row>
+                <Row>&nbsp;</Row>
+                <Row>
+                    {imageColumns}
+                </Row>
+                <Row>&nbsp;</Row>
             </Container>
         );
     }
