@@ -8,6 +8,74 @@ import trees from './images/trees.jpg';
 import log from './images/log.jpg';
 import sunset from './images/sunset.jpg';
 
+
+
+class Stories extends React.Component {
+    constructor(props) {
+        super(props);
+        const images = {
+            dontgo: dontgo,
+            log: log,
+            trees: trees,
+            sunset: sunset,
+        }
+        this.state = {
+            stories: StoriesData.map(s => ({
+                ...s,
+                image: images[s.imageKey]
+            })),
+            selected: null
+        };
+    }
+
+    handleClick(i) {
+        const stories = this.state.stories;
+        this.setState({
+            stories: stories,
+            selected: stories.find(s => s.id === i)
+        });
+    }
+
+    board() { 
+        const fontStyle = { fontFamily: "Roboto", fontSize: "19px"}
+        if (!this.state.selected) { 
+            return (
+                <MenuBoard  
+                    stories={this.state.stories}
+                    onClick={(i) => this.handleClick(i)}
+                    fontStyle={fontStyle}
+                />
+            );
+        }
+        else {
+            return (
+                <StoryBoard 
+                    selected={this.state.selected}
+                    fontStyle={fontStyle}
+                />
+            );
+        }
+    }
+
+    render() {
+        return (
+            <div>
+                <Imports />
+                <Navigation 
+                        stories={this.state.stories}
+                        selected={this.state.selected}
+                        onClick={(i) => this.handleClick(i)}
+                    />
+                <Container>
+                        {this.board()}
+                </Container>
+            </div>
+        )
+    }
+}
+
+
+
 class StoryBoard extends React.Component {
     render() {
         const paragraphs = this.props.selected.text.map((paragraph, index) => {
@@ -15,10 +83,10 @@ class StoryBoard extends React.Component {
                 <p key={index}>{paragraph}</p>
             );
         });
-        // style={{color: "#859900"}}
+
         return (
             <Container>
-                <div>
+                <div style={this.props.fontStyle}>
                     <br />
                     {paragraphs}
                     <br />
@@ -42,10 +110,16 @@ class MenuBoard extends React.Component {
                 </Col>
             );
         });
+        const style = {
+            ...this.props.fontStyle,
+            fontSize: "22px",
+            textAlign:"center"
+        };
+        
         return (
             <Container fluid>
                 <br />
-                <h5 style={{textAlign:"center"}}>These stories were written in May of 2020, the year of our 'rona, while under quarantine.</h5>
+                <h5 style={style}>These stories were written in May of 2020, the year of our 'rona, while under quarantine.</h5>
                 <div>
                     <Row>&nbsp;</Row>
                     <Row>
@@ -91,86 +165,21 @@ class Navigation extends React.Component {
         );
     }
 }
-class Stories extends React.Component {
-    constructor(props) {
-        super(props);
-        const images = {
-            dontgo: dontgo,
-            log: log,
-            trees: trees,
-            sunset: sunset,
-        }
-        this.state = {
-            stories: StoriesData.map(s => ({
-                ...s,
-                image: images[s.imageKey]
-            })),
-            selected: null,
-            images: images
-        };
-    }
-
-    handleClick(i) {
-        const stories = this.state.stories;
-        this.setState({
-            stories: stories,
-            selected: stories.find(s => s.id === i)
-        });
-    }
-
-    board() { 
-        if (!this.state.selected) { 
-            return (
-                <MenuBoard  
-                    stories={this.state.stories}
-                    onClick={(i) => this.handleClick(i)}
-                />
-            );
-        }
-        else {
-            return (
-                <StoryBoard 
-                    selected={this.state.selected}
-                />
-            );
-        }
-    }
-
-    render() {
-        return (
-            <div>
-            <header>
-                <Imports />
-                <Navigation 
-                    stories={this.state.stories}
-                    selected={this.state.selected}
-                    onClick={(i) => this.handleClick(i)}
-                />
-            </header>
-            <Container className="ReverseTheme">
-               
-                <div >
-                    {this.board()}
-                </div>
-            </Container>
-            </div>
-        )
-    }
-}
 
 class Imports extends React.Component {
     render() {
         return (
             <div>
-            <link
-                rel="stylesheet"
-                href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-                integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
-                crossOrigin="anonymous"
-            />
-
-            {/* <link href="http://thomasf.github.io/solarized-css/solarized-dark.min.css" rel="stylesheet"></link> */}
+                <link
+                    rel="stylesheet"
+                    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+                    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+                    crossOrigin="anonymous"
+                />
+                <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald"></link>
+                <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto"></link>
             </div>
+
         )
     }
 }

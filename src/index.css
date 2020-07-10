@@ -1,6 +1,9 @@
 
   .DarkTheme {color:#F0F0C9 !important; background-color:#333333 !important }
-  body { color:#333333 !important; background-color:#FFFFFA !important }
+  body { 
+    color:#333333 !important; 
+    background-color:#FFFFFA !important;
+  }
   
 
 #nav ul {
